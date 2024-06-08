@@ -161,6 +161,39 @@ namespace Geometry3DTests
             }
         }
 
+        [TestCase(0, 0, 0, 2, 8)]
+        [TestCase(6, 2, 4, 6, 4)]
+        [TestCase(-6, 2, 4, 6, 4)]
+        [TestCase(-6, -2, -4)]
+        [TestCase(6, 2, -4)]
+        [TestCase(6, -2, -4)]
+        public void Cone_BoundingBox_IsCorrect(double x, double y, double z, double radius = 4, double sizeZ = 5)
+        {
+            var cone = new Cone(new Vector3(x, y, z), sizeZ, radius);
+            var box = cone.GetBoundingBox();
+            var cuboid = new RectangularCuboid
+            (
+                cone.Position,
+                cone.Radius * 2,
+                cone.Radius * 2,
+                cone.SizeZ
+            );
+            AssertCuboidsEqual(cuboid, box);
+        }
+
+        [TestCase(-6, 2, 4, 6, 4)]
+        [TestCase(-6, -2, 4)]
+        [TestCase(-6, -2, -4)]
+        public void Cone_ContainsPoint_IsCorrect(
+            double x, double y, double z,
+            double radius = 4, double sizeZ = 8)
+        {
+            var cone = new Cone(new Vector3(x, y, z), sizeZ, radius);
+            AssetContainsPoint(cone, false, x + radius/2, y, z + sizeZ/2);
+            AssetContainsPoint(cone, true, radius/2 + x, radius/2 + y, z - sizeZ / 2);
+            AssetContainsPoint(cone, true, x, y, z + sizeZ/ 2);
+        }
+
         [Test]
         public void CompoundBody_WithBall_ContainsPoint_IsCorrect()
         {

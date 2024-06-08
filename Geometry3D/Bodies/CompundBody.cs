@@ -18,7 +18,7 @@ namespace Geometry3D
         public override bool ContainsPoint(Vector3 point)
         {
             var counter = 0;
-            while ((counter == Parts.Count) || !(Parts[counter].ContainsPoint(point)))
+            while ((counter <= Parts.Count) && !(Parts[Math.Min(counter,Parts.Count-1)].ContainsPoint(point)))
             {
                 counter++;
             }

@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bodies\Ball.cs" />
+	<Compile Include="Bodies\Cone.cs" />
     <Compile Include="Bodies\CompundBody.cs" />
     <Compile Include="Bodies\Cylinder.cs" />
     <Compile Include="Bodies\RectangleCuboid.cs" />
